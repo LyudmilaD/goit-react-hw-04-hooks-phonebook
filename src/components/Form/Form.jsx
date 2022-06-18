@@ -24,6 +24,7 @@ export const Form = ({ onSubmitData }) => {
     onSubmitData(data);
     inputClean();
   };
+
   const inputClean = () => {
     setForm({ name: '', number: '' });
   };
