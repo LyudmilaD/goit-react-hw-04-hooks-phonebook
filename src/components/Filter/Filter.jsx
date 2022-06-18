@@ -4,12 +4,7 @@ export const Filter = ({ value, onChange }) => {
   return (
     <div className={styles.formLabel}>
       <h2>Find contacts by name</h2>
-      <input
-        className={styles.input}
-        // type="text"
-        value={value}
-        onChange={onChange}
-      />
+      <input className={styles.input} value={value} onChange={onChange} />
     </div>
   );
 };
