@@ -1,43 +1,37 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import styles from './Form.module.css';
 
-export class Form extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
-  static propTypes = {
+export const Form ({ onSubmitData }) => {
+  const [form, setForm] = useState({ name: '', number: '' });
+
+  Form.propTypes = {
     onSubmitData: PropTypes.func.isRequired,
   };
 
-  handleChange = element => {
+  const handleChange = element => {
     const { name, value } = element.currentTarget;
-    this.setState({ [name]: value });
+    setForm(prevForm => ({ ...prevForm, [name]: value }));
   };
 
-  handleSubmit = element => {
+  const handleSubmit = element => {
     element.preventDefault();
-    const { name, number } = this.state;
-    const { onSubmitData } = this.props;
-
     const data = {
       id: nanoid(),
-      name,
-      number,
+      ...form
     };
     onSubmitData(data);
-    this.inputClean();
+    inputClean();
   };
-  inputClean = () => {
-    this.setState({ name: '', number: '' });
+  const inputClean = () => {
+    setForm({ name: '', number: '' });
   };
-  render() {
-    const { name, number } = this.state;
+  
+    const { name, number } = form;
     return (
       <div className={styles.form}>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label className={styles.formlabel}>
             Name
             <input
@@ -48,7 +42,7 @@ export class Form extends Component {
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
               value={name}
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
           </label>
           <label className={styles.formLabel}>
@@ -61,7 +55,7 @@ export class Form extends Component {
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
               value={number}
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
           </label>
           <button type="submit" className={styles.button}>
