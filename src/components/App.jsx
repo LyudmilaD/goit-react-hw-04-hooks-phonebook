@@ -50,7 +50,7 @@ export const App = () => {
   return (
     <div className={styles.wrap}>
       <h1>Phonebook</h1>
-      <Form onSubmitData={this.addContacts} />
+      <Form onSubmitData={addContacts} />
       <h2>Contacts</h2>
       <Filter value={filter} onChange={changeFilter} />
       <ContactList contacts={getContacts()} handleRemove={deleteContacts} />
